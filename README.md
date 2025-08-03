@@ -163,8 +163,3 @@ python app.py
 
 Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API documentation.
 
-## Notes
-
-- Make sure the input values for `sex`, `smoker`, and `region` match the expected case and spelling.
-- The model expects the same preprocessing as
->>>>>>> c3f804b (created new file)
