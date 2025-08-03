@@ -1,4 +1,4 @@
-# Medical Insurance Prediction API
+# Health Insurance Prediction API
 
 This project is a FastAPI-based web application that predicts medical insurance charges based on user input. The prediction is powered by a machine learning model (`model.pkl`) trained on insurance data.
 
