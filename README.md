@@ -10,8 +10,17 @@ This project is a FastAPI-based web application that predicts medical insurance 
 
 ## Requirements
 
-- Python 3.8+
-- pip
+fastapi
+uvicorn
+jinja2
+pydantic
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+xgboost
+feature_engine
 
 ## Setup
 
