@@ -52,3 +52,35 @@ This project predicts **medical insurance costs** based on user-provided feature
 ```bash
 git clone https://github.com/Arunbalekai18/Health-Insurance-Cost-Prediction.git
 cd Health-Insurance-Cost-Prediction
+ Create and activate virtual environment
+bash
+Copy
+Edit
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux/macOS
+source .venv/bin/activate
+3. Install dependencies
+bash
+Copy
+Edit
+pip install -r requirements.txt
+4. Run the app
+bash
+Copy
+Edit
+uvicorn app:app --reload
+5. Open in browser
+Visit http://127.0.0.1:8000 to use the app.
+
+📷 Screenshots
+Add screenshots of your UI here to make the README more visual and attractive.
+
+📝 Future Improvements
+Add feature importance visualization
+
+Add user authentication
+
+Deploy on platforms like Heroku or Render
+
