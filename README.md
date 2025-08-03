@@ -1,171 +1,54 @@
-# Medical Insurance Prediction API
+# 🏥 Health Insurance Cost Prediction Using Machine Learning
 
-This project is a FastAPI-based web application that predicts medical insurance charges based on user input. The prediction is powered by a machine learning model (`model.pkl`) trained on insurance data.
-
-## Features
-
-- REST API for predicting insurance charges
-- Web interface using Jinja2 templates
-- CORS enabled for cross-origin requests
-
-## Requirements
-
-- fastapi
-- uvicorn
-- jinja2
-- pydantic
-- numpy
-- pandas
-- matplotlib
-- seaborn
-- scikit-learn
-- xgboost
-- feature_engine
-
-## Setup
-
-1. **Clone the repository** (if applicable) and navigate to the project directory:
-    ```
-    cd C:\Users\arunb\MEDICAL-INSURANCE-PREDICTION
-    ```
-
-2. **(Optional) Create and activate a virtual environment:**
-    ```
-    python -m venv .venv
-    .venv\Scripts\activate
-    ```
-
-3. **Install dependencies:**
-    ```
-    pip install fastapi uvicorn jinja2 pydantic numpy pandas scikit-learn xgboost
-    ```
-
-4. **Ensure `model.pkl` is present in the project directory.**  
-   If not, train your model and save it as `model.pkl`.
-
-5. **Ensure you have a `templates` folder with `index.html` inside.**
-
-## Running the App
-
-### Using Uvicorn (recommended)
-```
-uvicorn app:app --reload
-```
-
-### Or using Python directly
-```
-python app.py
-```
-
-## API Endpoints
-
-- **GET /**  
-  Returns the home page.
-
-- **POST /predict**  
-  Accepts JSON input:
-  ```json
-  {
-    "age": 25,
-    "sex": "Male",
-    "bmi": 28.5,
-    "children": 2,
-    "smoker": "No",
-    "region": "Northeast"
-  }
-  ```
-  Returns:
-  ```json
-  {
-    "predicted_charges": 12345.67
-  }
-  ```
-
-## Testing
-
-Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API documentation.
-
-## Notes
-
-- Make sure the input values for `sex`, `smoker`, and `region` match the expected case and spelling.
-- The model expects the same preprocessing as used during training.
+This project predicts **medical insurance costs** based on user-provided features such as age, gender, BMI, smoking habits, number of children, and region. It uses a **Random Forest Regressor** model to provide accurate cost estimations. The goal is to help insurance companies price policies efficiently and assist users in understanding the impact of their lifestyle choices on insurance charges.
 
 ---
-```# Medical Insurance Prediction API
 
-This project is a FastAPI-based web application that predicts medical insurance charges based on user input. The prediction is powered by a machine learning model (`model.pkl`) trained on insurance data.
+## 📌 Features
 
-## Features
+- 🚀 Predict insurance costs in real-time via a web interface
+- 📊 Machine Learning model trained using Random Forest Regressor
+- ⚡ FastAPI backend for quick and scalable APIs
+- 🌐 Simple and responsive web UI with HTML and CSS
+- 💾 Model serialized with Pickle for efficient reuse
 
-- REST API for predicting insurance charges
-- Web interface using Jinja2 templates
-- CORS enabled for cross-origin requests
+---
 
-## Requirements
+## 🛠️ Tools and Technologies Used
 
-- Python 3.8+
-- pip
+| Category         | Tools/Frameworks                     |
+|------------------|--------------------------------------|
+| Programming      | Python                               |
+| Web Framework    | FastAPI, HTML, CSS, Jinja2           |
+| Machine Learning | scikit-learn (RandomForestRegressor) |
+| Data Handling    | Pandas, NumPy                        |
+| Deployment       | Uvicorn (local server)               |
+| Serialization    | Pickle                               |
+| Version Control  | Git, GitHub                          |
 
-## Setup
+---
 
-1. **Clone the repository** (if applicable) and navigate to the project directory:
-    ```
-    cd C:\Users\arunb\MEDICAL-INSURANCE-PREDICTION
-    ```
+## 🔍 How It Works
 
-2. **(Optional) Create and activate a virtual environment:**
-    ```
-    python -m venv .venv
-    .venv\Scripts\activate
-    ```
+1. **User Input**: User provides inputs like age, sex, BMI, children, smoker status, and region via a web form.
+2. **Model Prediction**: These values are passed to the trained RandomForest model.
+3. **Output**: Predicted insurance cost is displayed on the webpage.
 
-3. **Install dependencies:**
-    ```
-    pip install fastapi uvicorn jinja2 pydantic numpy pandas scikit-learn xgboost
-    ```
+---
 
-4. **Ensure `model.pkl` is present in the project directory.**  
-   If not, train your model and save it as `model.pkl`.
+## 🧠 Machine Learning Workflow
 
-5. **Ensure you have a `templates` folder with `index.html` inside.**
+- **Dataset**: `insurance.csv` containing real-world health insurance data.
+- **Preprocessing**: Label encoding of categorical features.
+- **Model**: RandomForestRegressor
+- **Evaluation**: Trained model was evaluated using metrics like MAE, MSE, RMSE.
+- **Serialization**: Final model was saved using `pickle` for API use.
 
-## Running the App
+---
 
-### Using Uvicorn (recommended)
-```
-uvicorn app:app --reload
-```
+## 🚀 Running the Project Locally
 
-### Or using Python directly
-```
-python app.py
-```
-
-## API Endpoints
-
-- **GET /**  
-  Returns the home page.
-
-- **POST /predict**  
-  Accepts JSON input:
-  ```json
-  {
-    "age": 25,
-    "sex": "Male",
-    "bmi": 28.5,
-    "children": 2,
-    "smoker": "No",
-    "region": "Northeast"
-  }
-  ```
-  Returns:
-  ```json
-  {
-    "predicted_charges": 12345.67
-  }
-  ```
-
-## Testing
-
-Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API documentation.
-
+### 1. Clone the repo
+```bash
+git clone https://github.com/Arunbalekai18/Health-Insurance-Cost-Prediction.git
+cd Health-Insurance-Cost-Prediction
