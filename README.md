@@ -1,166 +1,145 @@
-# Health Insurance Prediction API
+# Health Insurance Charges Prediction
 
-This project is a FastAPI-based web application that predicts medical insurance charges based on user input. The prediction is powered by a machine learning model (`model.pkl`) trained on insurance data.
-
-## Features
-
-- REST API for predicting insurance charges
-- Web interface using Jinja2 templates
-- CORS enabled for cross-origin requests
-
-## Requirements
-
-- Python 3.8+
-- pip
-
-## Setup
-
-1. **Clone the repository** (if applicable) and navigate to the project directory:
-    ```
-    cd C:\Users\arunb\MEDICAL-INSURANCE-PREDICTION
-    ```
-
-2. **(Optional) Create and activate a virtual environment:**
-    ```
-    python -m venv .venv
-    .venv\Scripts\activate
-    ```
-
-3. **Install dependencies:**
-    ```
-    pip install fastapi uvicorn jinja2 pydantic numpy pandas scikit-learn xgboost
-    ```
-
-4. **Ensure `model.pkl` is present in the project directory.**  
-   If not, train your model and save it as `model.pkl`.
-
-5. **Ensure you have a `templates` folder with `index.html` inside.**
-
-## Running the App
-
-### Using Uvicorn (recommended)
-```
-uvicorn app:app --reload
-```
-
-### Or using Python directly
-```
-python app.py
-```
-
-## API Endpoints
-
-- **GET /**  
-  Returns the home page.
-
-- **POST /predict**  
-  Accepts JSON input:
-  ```json
-  {
-    "age": 25,
-    "sex": "Male",
-    "bmi": 28.5,
-    "children": 2,
-    "smoker": "No",
-    "region": "Northeast"
-  }
-  ```
-  Returns:
-  ```json
-  {
-    "predicted_charges": 12345.67
-  }
-  ```
-
-## Testing
-
-Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API documentation.
-
-## Notes
-
-- Make sure the input values for `sex`, `smoker`, and `region` match the expected case and spelling.
-- The model expects the same preprocessing as used during training.
+This project predicts medical insurance charges using machine learning models trained on the [insurance.csv](insurance.csv) dataset. The workflow includes data preprocessing, exploratory data analysis, feature engineering, model training, hyperparameter tuning, and deployment using FastAPI.
 
 ---
-```# Medical Insurance Prediction API
 
-This project is a FastAPI-based web application that predicts medical insurance charges based on user input. The prediction is powered by a machine learning model (`model.pkl`) trained on insurance data.
+## Table of Contents
 
-## Features
+- [Project Structure](#project-structure)
+- [Setup & Installation](#setup--installation)
+- [Data Preprocessing](#data-preprocessing)
+- [Modeling](#modeling)
+- [API Usage](#api-usage)
+- [Example Request](#example-request)
+- [Notes](#notes)
 
-- REST API for predicting insurance charges
-- Web interface using Jinja2 templates
-- CORS enabled for cross-origin requests
+---
 
-## Requirements
+## Project Structure
 
-- Python 3.8+
-- pip
+```
+MEDICAL-INSURANCE-PREDICTION/
+│
+├── insurance.csv
+├── medical.ipynb
+├── app.py
+├── model.pkl
+├── templates/
+│   └── index.html
+└── README.md
+```
 
-## Setup
+---
+
+## Setup & Installation
 
 1. **Clone the repository** (if applicable) and navigate to the project directory:
-    ```
-    cd C:\Users\arunb\MEDICAL-INSURANCE-PREDICTION
+    ```sh
+    cd MEDICAL-INSURANCE-PREDICTION
     ```
 
 2. **(Optional) Create and activate a virtual environment:**
-    ```
+    ```sh
     python -m venv .venv
     .venv\Scripts\activate
     ```
 
 3. **Install dependencies:**
+    ```sh
+    pip install -r requirements.txt
     ```
-    pip install fastapi uvicorn jinja2 pydantic numpy pandas scikit-learn xgboost
+    If `requirements.txt` is not present, install manually:
+    ```sh
+    pip install pandas numpy matplotlib seaborn scikit-learn xgboost feature_engine fastapi uvicorn jinja2
     ```
 
-4. **Ensure `model.pkl` is present in the project directory.**  
-   If not, train your model and save it as `model.pkl`.
+4. **Ensure `insurance.csv` is present in the project directory.**
 
-5. **Ensure you have a `templates` folder with `index.html` inside.**
+---
 
-## Running the App
+## Data Preprocessing
 
-### Using Uvicorn (recommended)
+- **Column Renaming:** Renames `sex` to `gender` for clarity.
+- **Missing Values:** Checks and confirms no missing values.
+- **Duplicates:** Removes duplicate rows.
+- **Outlier Handling:** Caps outliers in the `bmi` column using the IQR method and `feature_engine`.
+- **Encoding:** Encodes categorical variables:
+    - `gender`: male=0, female=1
+    - `smoker`: yes=1, no=0
+    - `region`: northwest=0, northeast=1, southwest=2, southeast=3
+- **Feature Selection:** Drops less important features based on model importance.
+
+---
+
+## Modeling
+
+- **Models Used:**
+    - Linear Regression
+    - Support Vector Regression (SVR)
+    - Random Forest Regressor (with GridSearchCV for hyperparameter tuning)
+    - Gradient Boosting Regressor (with GridSearchCV)
+    - XGBoost Regressor (with GridSearchCV)
+- **Evaluation:** Uses R² score and cross-validation for model assessment.
+- **Best Model:** The best-performing model is saved as `model.pkl` for deployment.
+
+---
+
+## API Usage
+
+The project includes a FastAPI app (`app.py`) for serving predictions.
+
+### **Run the API**
+
+1. **Start the server:**
+    ```sh
+    uvicorn app:app --reload
+    ```
+    or
+    ```sh
+    python app.py
+    ```
+
+2. **Access the web interface:**  
+   [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+3. **API documentation:**  
+   [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+---
+
+## Example Request
+
+**POST** `/predict`
+
+```json
+{
+  "age": 35,
+  "sex": "male",
+  "bmi": 28.5,
+  "children": 2,
+  "smoker": "no",
+  "region": "northeast"
+}
 ```
-uvicorn app:app --reload
+
+**Response:**
+```json
+{
+  "predicted_charges": 12345.67
+}
 ```
 
-### Or using Python directly
-```
-python app.py
-```
-
-## API Endpoints
-
-- **GET /**  
-  Returns the home page.
-
-- **POST /predict**  
-  Accepts JSON input:
-  ```json
-  {
-    "age": 25,
-    "sex": "Male",
-    "bmi": 28.5,
-    "children": 2,
-    "smoker": "No",
-    "region": "Northeast"
-  }
-  ```
-  Returns:
-  ```json
-  {
-    "predicted_charges": 12345.67
-  }
-  ```
-
-## Testing
-
-Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API documentation.
+---
 
 ## Notes
 
-- Make sure the input values for `sex`, `smoker`, and `region` match the expected case and spelling.
-- The model expects the same preprocessing as
+- Ensure the input values for categorical fields (`sex`, `smoker`, `region`) match the expected values and case.
+- The model expects the same preprocessing as used during training.
+- The notebook (`medical.ipynb`) contains all data exploration, preprocessing, and model training steps for full reproducibility.
+
+---
+
+## License
+
+This project is
